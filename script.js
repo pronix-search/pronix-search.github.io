@@ -9,15 +9,16 @@ function generateRandomString(length) {
     return result;
 }
 
-document.getElementById('search-button').addEventListener('click', function() {
-    const query = document.getElementById('search-input').value;
-    if (query) {
-        // Générer une chaîne aléatoire de 15 caractères
-        const randomString = generateRandomString(15);
-        
-        // Rediriger vers la page de résultats avec la requête et une chaîne aléatoire
-        window.location.href = `search.html?query=${encodeURIComponent(query)}&id=${randomString}`;
-    } else {
-        alert("Veuillez entrer une recherche.");
+// Détecter la touche "Entrée" pour lancer la recherche
+document.getElementById('search-input').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        const query = document.getElementById('search-input').value;
+        if (query) {
+            const randomString = generateRandomString(15);
+            window.location.href = `search.html?query=${encodeURIComponent(query)}&id=${randomString}`;
+        } else {
+            alert("Veuillez entrer une recherche.");
+        }
     }
 });
